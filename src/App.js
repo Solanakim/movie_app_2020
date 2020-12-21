@@ -55,7 +55,7 @@
 
 // function App() {
 //   return (
-//     <div className="App">
+//     <div classNameName="App">
 //       {<Food
 //         fav="tteokbokki"
 //         something={true}
@@ -76,7 +76,7 @@
 // import React from "react";
 // import PropTypes from "prop-types";
 
-// class App extends React.Component {
+// className App extends React.Component {
 //   constructor(props) {
 //     super(props);
 //     console.log("hello - constructor ");
@@ -116,7 +116,8 @@
 
 import React from "react";
 import axios from "axios";
-import Movie from "./Movie.js"
+import Movie from "./Movie.js";
+import "./App.css";
 
 class App extends React.Component {
   state = {
@@ -139,10 +140,27 @@ class App extends React.Component {
 
   render() {
     const { isLoading, movies } = this.state;      //this.movies.state.movies or {movies}
-    return <div>{this.state.isLoading ? "Loading..." : movies.map(movie => {
-      console.log(movie);
-      return <Movie key={movie.id} id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.medium_cover_image} />;   //axios.get 한 것을 Movie.js로 export 
-    })}</div>;     //map should have return something
+    return (
+      <section className="container">
+        {isLoading
+          ? (<div className="loader">
+            <span className="loader_text">Loading....</span>
+          </div>)
+          : (
+            <div className="movies">
+              {movies.map(movie => (
+                <Movie
+                  key={movie.id}
+                  id={movie.id}
+                  year={movie.year}
+                  title={movie.title}
+                  summary={movie.summary}
+                  poster={movie.medium_cover_image} 
+                  genres={movie.genres}/> //axios.get 한 것을 Movie.js로 export 
+              ))}
+            </div>
+           )}   
+      </section>);     //map should have return something
   }
 }
 
